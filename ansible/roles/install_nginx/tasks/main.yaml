@@ -1,0 +1,27 @@
+---
+- name: Install nginx
+  ansible.builtin.package:
+    name: nginx
+    state: latest
+
+- name: Enable nginx in systemd
+  ansible.builtin.service:
+    name: nginx
+    enabled: true
+
+- name: Install core nginx config
+  ansible.builtin.template:
+    src: nginx.j2
+    dest: /etc/nginx/nginx.conf
+    mode: 0644
+
+- name: Install static config
+  ansible.builtin.template:
+    src: static.j2
+    dest: /etc/nginx/conf.d/static.conf
+    mode: 0644
+
+- name: Reload nginx configuration
+  ansible.builtin.service:
+    name: nginx
+    state: reloaded

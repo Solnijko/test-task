@@ -1,0 +1,6 @@
+[ubuntu_host]
+ubuntu
+[ubuntu_host:vars]
+ansible_connection=ssh
+ansible_port=22
+ansible_user=root

@@ -1,0 +1,30 @@
+---
+- name: Install user zshell
+  ansible.builtin.package:
+    name: zsh
+    state: present
+  become_user: "{{ user_name }}"
+  when: user_shell == 'ohmyzsh' or user_shell == 'zsh'
+
+- name: Download ohmyzsh install script
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    dest: /home/{{ user_name }}/install_ohmyzsh.sh
+    mode: 0755
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  when: user_shell == 'ohmyzsh'
+
+- name: Install ohmyzsh
+  ansible.builtin.shell:
+    chdir: "/home/{{ user_name }}"
+    cmd: "env RUNZSH=no CHSH=no HOME=/home/{{ user_name }} sh -c ./install_ohmyzsh.sh"
+    creates: "/home/{{ user_name }}/.oh-my-zsh"
+  when: user_shell == 'ohmyzsh'
+  become_user: "{{ user_name }}"
+
+- name: Change user shell
+  ansible.builtin.user:
+    name: "{{ user_name }}"
+    shell: "/bin/zsh"
+  when: user_shell == 'ohmyzsh' or user_shell == 'zsh'

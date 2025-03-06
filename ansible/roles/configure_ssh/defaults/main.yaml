@@ -1,0 +1,5 @@
+root_login: "no"
+empty_pass: "no"
+log_level: "VERBOSE"
+x11_forwarding: "no"
+ssh_port: 22

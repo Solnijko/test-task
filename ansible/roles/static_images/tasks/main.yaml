@@ -1,0 +1,13 @@
+---
+- name: Create directory for static path
+  ansible.builtin.file:
+    path: /files/images
+    state: directory
+    recurse: true
+    mode: 0755
+
+- name: Copy files to static path
+  ansible.builtin.copy:
+    src: files/
+    dest: /files/images
+    mode: 0755

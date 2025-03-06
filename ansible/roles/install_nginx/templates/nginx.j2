@@ -1,0 +1,24 @@
+worker_processes auto;
+pid /run/nginx.pid;
+error_log /var/log/nginx/error.log;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+        worker_connections 768;
+}
+
+http {
+        sendfile on;
+        tcp_nopush on;
+        types_hash_max_size 2048;
+
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+
+        access_log {{ logs_dir }}/access.log;
+        error_log {{ logs_dir }}/error.log;
+
+        gzip {{ gzip }};
+        gzip_types {{ gzip_types }};
+        include /etc/nginx/conf.d/*.conf;
+}

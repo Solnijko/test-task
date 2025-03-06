@@ -1,0 +1,37 @@
+---
+- name: Ensure that user groups exist
+  ansible.builtin.group:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ user_groups }}"
+
+- name: Define user
+  ansible.builtin.user:
+    name: "{{ user_name }}"
+    password: "{{ user_password | ansible.builtin.password_hash }}"
+    state: "{{ user_state }}"
+    shell: "/bin/bash"
+    groups: "{{ user_groups }}"
+    append: "{{ user_append }}"
+    remove: "{{ user_remove}}"
+
+- name: Create .ssh directory
+  ansible.builtin.file:
+    path: "/home/{{ user_name }}/.ssh"
+    state: directory
+    mode: 0750
+  become_user: "{{ user_name }}"
+
+- name: Create autorized_keys file
+  ansible.builtin.file:
+    path: "/home/{{ user_name }}/.ssh/authorized_keys"
+    state: touch
+    mode: 0644
+  become_user: "{{ user_name }}"
+
+- name: Add public key to authorized_keys
+  ansible.builtin.authorized_key:
+    user: "{{ user_name }}"
+    state: present
+    key: "{{ user_public_key }}"
+    path: "/home/{{ user_name }}/.ssh/authorized_keys"

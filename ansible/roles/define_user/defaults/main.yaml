@@ -1,0 +1,9 @@
+user_name: ""
+user_password: ""
+user_shell: "/bin/bash"
+user_state: present
+user_public_key: ""
+user_groups:
+  - ""
+user_append: true
+user_remove: false

@@ -1,0 +1,11 @@
+---
+- name: Configure ssh
+  ansible.builtin.template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    mode: 0644
+
+- name: Restart ssh
+  ansible.builtin.service:
+    name: ssh
+    state: reloaded
