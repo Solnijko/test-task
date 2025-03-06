@@ -19,14 +19,14 @@
   ansible.builtin.file:
     path: "/home/{{ user_name }}/.ssh"
     state: directory
-    mode: 0750
+    mode: 0700
   become_user: "{{ user_name }}"
 
 - name: Create autorized_keys file
   ansible.builtin.file:
     path: "/home/{{ user_name }}/.ssh/authorized_keys"
     state: touch
-    mode: 0644
+    mode: 0600
   become_user: "{{ user_name }}"
 
 - name: Add public key to authorized_keys
