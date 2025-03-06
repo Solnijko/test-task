@@ -1,5 +1,5 @@
 ---
-- name: Install user zshell
+- name: Install zsh
   ansible.builtin.package:
     name: zsh
     state: present

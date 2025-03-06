@@ -1,0 +1,10 @@
+user_name: "ansible"
+user_password: "ansible"
+user_shell: "ohmyzsh"
+user_public_key: |
+  ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICHxvR7RGQupaoemee2ysd8e49S+8tvI25E6EsWqMuiC root@57d8ffbb4610
+user_groups:
+  - "admins"
+  - "users"
+  - "test"
+  - "wheel"

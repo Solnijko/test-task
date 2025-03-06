@@ -1,0 +1,8 @@
+packages:
+  - python3-pexpect
+  - sudo
+  - htop
+  - ncdu
+  - git
+  - nano
+  - curl
